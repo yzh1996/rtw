@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<!--    加载配置文件-->
+     <properties resource="rtw.properties"/>
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+<!--    每个enviroment就对应于一个数据库环境，default的值 确定使用哪个数据库环境-->
+    <environments default="development">
+        <environment id="development">
+<!-- 事务管理器，支持JDBC和MANAGED 两种,JDBC:使用 jdbc配置的提交和回滚-->
+            <transactionManager type="JDBC"/>
+<!--            数据源配置，POOLED 连接池，unpooled 一次请求分配一个连接关闭-->
+            <dataSource type="POOLED">
+<!--                JDBC驱动器-->
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="mapper/jobmapper.xml"/>
+    </mappers>
+</configuration>

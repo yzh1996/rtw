@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="db.ConfigDao">
+    <!--    方式1：resultMap   可以解决下划线转换的问题-->
+    <resultMap id="jobconfig" type="db.vo.JobConfigVo">
+        <!--        <id column="" property=""></id>     id 表示表的主键 或者别名字段-->
+        <result property="jobName" column="job_name"></result>
+        <result property="confKey" column="conf_key"></result>
+        <result property="confValue" column="conf_value"></result>
+        <result property="mark" column="mark"></result>
+    </resultMap>
+    <select id="selectJobConfig" resultMap="jobconfig">
+    select * from tb_jobconfig where job_name = #{jobname}
+ </select>
+
+    <select id="selectVague" parameterType="String" resultMap="jobconfig">
+        <bind name="pattern" value="'%'#{}'%'"/>
+        select * from tb_jobconfig
+        <where>
+            job_name like #{pattern}
+        </where>
+    </select>
+    <select id="selectDym"  parameterType="String" resultMap="jobconfig">
+
+    </select>
+
+
+    <!--    方式2   自动映射   当 类属性与表中属性完全一致时比较方便-->
+    <!--    <select id="xxx" parameterType="String" resultType="xxxx"></select>-->
+
+    <insert id="insertWarningJob" parameterType="request.Request" >
+        insert tb_warningtask (taskid,tasktype,status) values (#{taskid},#{tasktype},#{status})
+    </insert>
+
+
+
+</mapper>
